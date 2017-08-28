@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="myapp"> 
+<head>
+    <title>The User Story</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <!-- Below Jquery library files -->      
+    <!-- Below AngularJS files --> 
+    <script src="assets/js/angular.min.js"></script>
+    <script src="assets/js/anjs-custom.js"></script>      
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"> 
+</head> 
+<body>
+    <div class="container" ng-controller="myCtrl"> 
+        <h1 ng-show="allUsers" class="text-center"><span class="label label-default">{{message}}</span></h1>
+        <!-- Display Error if Data did not fetch from Web Server or down. -->
+        <div class="panel panel-danger" ng-show="displayError" style="margin-top:20px;">
+            <div class="panel-heading">Error</div>
+            <div class="panel-body">Couldn't find user data! Try after some time ): </div>
+        </div>
+        <!-- Display User Information if Data successfully fetch from Web Server. -->
+        <div class="  table-responsive" ng-show="allUsers" style="margin-top: 30px;">
+            <table class="table table-bordered table-hover customeStyle">
+                <thead>
+                    <tr> 
+                        <th>
+                          <a href="javascript:void(0)" ng-click="sortType = 'id'; sortReverse = !sortReverse">
+                            ID 
+                            <span ng-show="sortType == 'id' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'id' && sortReverse" class="fa fa-caret-up"></span>
+                          </a>
+                        </th>
+                        <th>
+                          <a href="javascript:void(0)" ng-click="sortType = 'title'; sortReverse = !sortReverse">
+                            Title 
+                            <span ng-show="sortType == 'title' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'title' && sortReverse" class="fa fa-caret-up"></span>
+                          </a>
+                        </th>  
+                        <th> Post </th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="user in allUsers | orderBy:sortType:sortReverse">
+                        <td> {{user.id }} </td>
+                        <td> {{user.title | capitlize }}</td>
+                        <td>{{user.body | capitlize }}</td> 
+                    </tr>
+                </tbody>
+            </table>
+        </div> 
+</body>
+</html>
